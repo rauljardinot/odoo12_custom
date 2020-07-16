@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="venta_report_excel_card"
+                model="ventas.excel.wizard"
+                string="Sale Order Excel Report 2"
+                name="exportar_excel_sale_order.venta_report_excel"
+                file="exportar_excel_sale_order.venta_report_excel"
+                report_type="xlsx"
+                menu="False"
+                attachment_use="False"
+        />
+
+        <act_window
+            id="action_informacion_sale_export"
+            res_model="ventas.excel.wizard"
+            src_model="sale.order"
+            target="new"
+            multi="True"
+            key2="client_action"
+            view_mode="form"
+            name="Exportar a Excel 2"/>
+
+    </data>
+</odoo>

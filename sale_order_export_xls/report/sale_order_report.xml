@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <report
+            id="sale_report_xls"
+            model="sale.excel.wizard"
+            string="Sale Order Excel Report"
+            report_type="xlsx"
+            name="sale_excel_report.sale_report_xls.xslx"
+            file="sale_excel_report.sale_report_xls.xslx"
+            menu="False"
+            attachment_use="False"/>
+    <act_window
+            id="action_info_sale_export"
+            res_model="sale.excel.wizard"
+            src_model="sale.order"
+            target="new"
+            multi="True"
+            key2="client_action"
+            view_mode="form"
+            name="Exportar a Excel"/>
+</odoo>

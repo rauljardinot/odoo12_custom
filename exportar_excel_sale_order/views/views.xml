@@ -1,0 +1,39 @@
+<odoo>
+  <data>
+    <!-- Inherit Form View to Modify it -->
+    <record id="sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <!-- Add your fields or attributes here -->
+              <field name="hora" />
+              <field name="zona" />
+            </xpath>
+
+        </field>
+    </record>
+
+      <record id="zona_action" model="ir.actions.act_window">
+          <field name="name">zona.zona</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">zona.zona</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+
+
+      <menuitem id="zona_categ" name="Zonas" parent="sale.menu_sales_config" action="zona_action" sequence=""/>
+
+      <record id="horario_action" model="ir.actions.act_window">
+          <field name="name">horario.horario</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">horario.horario</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+      <menuitem id="horario_categ" name="Horario" parent="sale.menu_sales_config" action="horario_action" sequence=""/>
+
+
+  </data>
+</odoo>

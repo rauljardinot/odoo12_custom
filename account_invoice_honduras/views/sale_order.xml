@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="sale_order_honduras" model="ir.ui.view">
+            <field name="name">sale.order.honduras.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="no_correlativo_constancia_registro_exonerado"/>
+                </xpath>
+                <xpath expr="//field[@name='no_correlativo_constancia_registro_exonerado']" position="after">
+                    <field name="no_identificativo_registro_sag" />
+                </xpath>
+                <xpath expr="//field[@name='no_correlativo_constancia_registro_exonerado']" position="after">
+                    <field name="no_correlativo_orden_compra_exenta" />
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

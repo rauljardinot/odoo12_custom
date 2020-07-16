@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="account_invoice_honduras" model="ir.ui.view">
+            <field name="name">account.invoice.honduras.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <strong>Importe en Letras</strong>
+                    <field name="importe_letras" nolabel="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="before">
+
+                    <field name="rango_emision" string="Rango Emisión"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="correlativo_constancia_registro_exonerado"
+                    />
+                </xpath>
+                <xpath expr="//field[@name='correlativo_constancia_registro_exonerado']" position="after">
+                    <field name="identificativo_registro_sag"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_tax_form_honduras" model="ir.ui.view">
+            <field name="name">account.tax.honduras.form.inherit</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+
+                    <field name="sequence" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
