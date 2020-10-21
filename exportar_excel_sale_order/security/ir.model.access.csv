@@ -1,3 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_zona,access_zona,model_zona_zona,base.group_system,1,1,1,1
 access_horario,access_horario,model_horario_horario,base.group_system,1,1,1,1
+
+access_zonagroup_user,access_zonagroup_user,model_zona_zona,base.group_user,1,0,0,0
+access_horariogroup_user,access_horariogroup_user,model_horario_horario,base.group_user,1,0,0,0
+

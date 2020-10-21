@@ -2,8 +2,11 @@
 # Copyright (C) 2018-present  Technaureus Info Solutions Pvt. Ltd.(<http://www.technaureus.com/>).
 
 import xlsxwriter
-from odoo import models
+from odoo import models, fields
 from datetime import datetime, timedelta
+import pytz
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+
 
 class SalesXlsx(models.AbstractModel):
     _name = 'report.exportar_excel_sale_order.venta_report_excel'
@@ -11,11 +14,20 @@ class SalesXlsx(models.AbstractModel):
 
     def generate_xlsx_report(self, workbook, data, wizard_obj):
         for obj in wizard_obj:
-            domain=[]
+            domain = []
+
+            fecha_inicio = datetime.strptime(datetime.strftime(obj.fecha_inicio, '%d/%m/%y %H:%M:%S'),
+                                             "%d/%m/%y %H:%M:%S")
+            diferencia = timedelta(hours=6)
+            fecha_inicio = fecha_inicio + diferencia
+            diferencia = timedelta(hours=30)
+            fecha_fin = datetime.strptime(datetime.strftime(obj.fecha_fin, '%d/%m/%y %H:%M:%S'), "%d/%m/%y %H:%M:%S")
+            fecha_fin = fecha_fin + diferencia
+
             if obj.fecha_inicio:
-                domain.append(('date_order', '>=', obj.fecha_inicio))
+                domain.append(('date_order', '>=', fecha_inicio))
             if obj.fecha_fin:
-                domain.append(('date_order', '<=', obj.fecha_fin))
+                domain.append(('date_order', '<=', fecha_fin))
             if obj.horario:
                 domain.append(('hora', '=', obj.horario.id))
 
@@ -30,18 +42,24 @@ class SalesXlsx(models.AbstractModel):
             col = 0
             for sale in sale_order:
                 worksheet.write(row, col, sale.name, text)
-                worksheet.write(row, col+1, sale.partner_id.name, text)
-                worksheet.write(row, col+2, (sale.partner_id.phone if sale.partner_id.phone else ""), text)
+                worksheet.write(row, col + 1, sale.partner_id.name, text)
+                worksheet.write(row, col + 2, (sale.partner_id.phone if sale.partner_id.phone else ""), text)
                 if sale.date_order:
-                    worksheet.write(row, col+3,  datetime.strftime(sale.date_order, '%Y-%m-%d'), text)
-                direccion = str(sale.partner_id.street)or " " + ' ' + str(sale.partner_id.street2) or " " + ' ' + str(sale.partner_id.city) or " " + ' ' +  str(sale.partner_id.state_id.name) or " " + ' ' +  str(sale.partner_id.country_id.name)or " "
-                worksheet.write(row, col+4, direccion, text)
-                worksheet.write(row, col+5, sale.payment_term_id.name or "", text)
-                worksheet.write(row, col+6, sale.note, text)
-                worksheet.write(row, col+7, sale.hora.name or " " , text)
-                worksheet.write(row, col+8, sale.zona.name or "", text)
-                worksheet.write(row, col+9, sale.amount_total or "", text)
-                row=row+1
+                    date_order=datetime.strptime(datetime.strftime(sale.date_order, '%d/%m/%y %H:%M:%S'),
+                                             "%d/%m/%y %H:%M:%S")
+                    diferencia = timedelta(hours=6)
+                    date_order = date_order - diferencia
+                    worksheet.write(row, col+3,datetime.strftime(date_order,'%d/%m/%y %H:%M:%S'), text)
+                direccion = str(sale.partner_id.street) or " " + ' ' + str(sale.partner_id.street2) or " " + ' ' + str(
+                    sale.partner_id.city) or " " + ' ' + str(sale.partner_id.state_id.name) or " " + ' ' + str(
+                    sale.partner_id.country_id.name) or " "
+                worksheet.write(row, col + 4, direccion, text)
+                worksheet.write(row, col + 5, sale.payment_term_id.name or "", text)
+                worksheet.write(row, col + 6, sale.note, text)
+                worksheet.write(row, col + 7, sale.hora.name or " ", text)
+                worksheet.write(row, col + 8, sale.zona.name or "", text)
+                worksheet.write(row, col + 9, sale.amount_total or "", text)
+                row = row + 1
 
             row = 0
             col = 0
@@ -51,18 +69,14 @@ class SalesXlsx(models.AbstractModel):
             worksheet.set_column('F:F', 14)
             worksheet.set_column('G:G', 50)
             worksheet.write(row, col, 'Pedido', text)
-            worksheet.write(row, col+1, 'Cliente', text)
-            worksheet.write(row, col+2, 'Telefono', text)
-            worksheet.write(row, col+3, 'Dia', text)
-            worksheet.write(row, col+4, 'Colonia', text)
-            worksheet.write(row, col+5, 'Forma de Pago', text)
-            worksheet.write(row, col+6, 'Observaciones', text)
-            worksheet.write(row, col+7, 'Hora', text)
-            worksheet.write(row, col+8, 'Zona', text)
-            worksheet.write(row, col+9, 'Factura', text)
+            worksheet.write(row, col + 1, 'Cliente', text)
+            worksheet.write(row, col + 2, 'Telefono', text)
+            worksheet.write(row, col + 3, 'Dia', text)
+            worksheet.write(row, col + 4, 'Colonia', text)
+            worksheet.write(row, col + 5, 'Forma de Pago', text)
+            worksheet.write(row, col + 6, 'Observaciones', text)
+            worksheet.write(row, col + 7, 'Hora', text)
+            worksheet.write(row, col + 8, 'Zona', text)
+            worksheet.write(row, col + 9, 'Factura', text)
             row = 0
-            col=col+1
-
-
-
-
+            col = col + 1
