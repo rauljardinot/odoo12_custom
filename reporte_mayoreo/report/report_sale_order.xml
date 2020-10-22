@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="report_mayoreo_excel_card"
+                model="mayoreo.excel.wizard"
+                string="Sale Order Excel Report 2"
+                name="reporte_mayoreo.venta_report_excel"
+                file="reporte_mayoreo.venta_report_excel"
+                report_type="xlsx"
+                menu="False"
+                attachment_use="False"
+        />
+
+        <act_window
+            id="action_mayoreo_sale_export"
+            res_model="mayoreo.excel.wizard"
+            src_model="sale.order"
+            target="new"
+            multi="True"
+            key2="client_action"
+            view_mode="form"
+            name="Reporte Mayoreo"/>
+
+    </data>
+</odoo>

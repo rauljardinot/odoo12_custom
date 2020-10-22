@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_excel_sale,exportar_excel_sale_order.prueba,model_report.venta_report_excel,,1,0,0,0

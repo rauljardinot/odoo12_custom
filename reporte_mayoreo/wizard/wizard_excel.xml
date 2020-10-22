@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_report_mayoreo_wizard_excel" model="ir.ui.view">
+        <field name="name">mayoreo.excel.wizard.form</field>
+        <field name="model">mayoreo.excel.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Excel Report">
+                <group>
+
+                    <group>
+<!--                        <field name="categorias"   attrs="{'invisible': [('todas_las_categorias', '=', True)]}"/>-->
+<!--                        <field name="todas_las_categorias" />-->
+<!--                        <field name="referencia_cliente" />-->
+
+                        <field name="comercial" />
+                        <field name="fecha_inicio" />
+                        <field name="fecha_fin" />
+                      </group>
+                </group>
+                <footer>
+                    <button name="print_xls_report" string="Export" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
